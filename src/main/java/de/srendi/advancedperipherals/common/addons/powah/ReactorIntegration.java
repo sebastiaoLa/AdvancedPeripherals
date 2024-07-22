@@ -2,6 +2,8 @@ package de.srendi.advancedperipherals.common.addons.powah;
 
 import dan200.computercraft.api.lua.LuaFunction;
 import de.srendi.advancedperipherals.lib.peripherals.APGenericPeripheral;
+import de.srendi.advancedperipherals.lib.peripherals.BlockEntityIntegrationPeripheral;
+import de.srendi.advancedperipherals.common.util.LuaConverter;
 import net.minecraft.world.item.ItemStack;
 import owmii.powah.block.reactor.ReactorPartTile;
 
@@ -71,23 +73,38 @@ public class ReactorIntegration implements APGenericPeripheral {
     }
 
     @LuaFunction(mainThread = true)
-    public final ItemStack getInventoryUraninite(ReactorPartTile blockEntity) {
-        if (blockEntity.core().isEmpty())
-            return ItemStack.EMPTY;
-        return blockEntity.core().get().getInventory().getStackInSlot(1);
+    public final Object getInventoryUraninite() {
+        if (blockEntity.core().isEmpty()) {
+            return null;
+        }
+        ItemStack stack = blockEntity.core().get().getStack(1);
+        if (stack.isEmpty()) {
+            return null;
+        }
+        return LuaConverter.stackToObject(stack);
     }
 
     @LuaFunction(mainThread = true)
-    public final ItemStack getInventoryRedstone(ReactorPartTile blockEntity) {
-        if (blockEntity.core().isEmpty())
-            return ItemStack.EMPTY;
-        return blockEntity.core().get().getInventory().getStackInSlot(3);
+    public final Object getInventoryRedstone() {
+        if (blockEntity.core().isEmpty()) {
+            return null;
+        }
+        ItemStack stack = blockEntity.core().get().getStack(3);
+        if (stack.isEmpty()) {
+            return null;
+        }
+        return LuaConverter.stackToObject(stack);
     }
 
     @LuaFunction(mainThread = true)
-    public final ItemStack getInventoryCarbon(ReactorPartTile blockEntity) {
-        if (blockEntity.core().isEmpty())
-            return ItemStack.EMPTY;
-        return blockEntity.core().get().getInventory().getStackInSlot(2);
+    public final Object getInventoryCarbon() {
+        if (blockEntity.core().isEmpty()) {
+            return null;
+        }
+        ItemStack stack = blockEntity.core().get().getStack(2);
+        if (stack.isEmpty()) {
+            return null;
+        }
+        return LuaConverter.stackToObject(stack);
     }
 }
